@@ -1,0 +1,48 @@
+import csv
+import sys
+
+filename = sys.argv[1]
+print('(1)Crear Nuevo Archivo\n(2)Agregar Nuevo Registro')
+option = input("Escoja una opcion: ")
+if (option == '1'):
+    with open(filename, 'w', newline='') as f:
+        fieldnames = ['Cedula', 'Nombre', 'Apellido', 'Edad']
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        while(True):
+            cedula = input("Cedula: ")
+            nombre = input("Nombre: ")
+            nombre = nombre.title()
+            apellido = input("Apellido: ")
+            apellido = apellido.title()
+            edad = int(input("Edad: "))
+    
+            writer.writerow({'Cedula' : cedula, 'Nombre' : nombre, 'Apellido' : apellido, 'Edad' : edad})
+
+            salida = input("Continuar(C)/Salir(S): ")
+            salida = salida.upper()
+            if (salida == 'C'):
+                continue
+            if (salida == 'S'):
+                break
+if (option == '2'):
+    with open(filename, 'a', newline='') as f:
+        fieldnames = ['Cedula', 'Nombre', 'Apellido', 'Edad']
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        while(True):
+            cedula = input("Cedula: ")
+            nombre = input("Nombre: ")
+            nombre = nombre.title()
+            
+            apellido = input("Apellido: ")
+            apellido = apellido.title()
+            edad = int(input("Edad: "))
+    
+            writer.writerow({'Cedula' : cedula, 'Nombre' : nombre, 'Apellido' : apellido, 'Edad' : edad})
+
+            salida = input("Continuar(C)/Salir(S): ")
+            salida = salida.upper()
+            if (salida == 'C'):
+                continue
+            if (salida == 'S'):
+                break
