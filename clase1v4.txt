@@ -1,0 +1,141 @@
+import csv
+import sys
+import getpass
+filename = sys.argv[1]
+while(True):
+    print('(1)Crear Nuevo Archivo\n(2)Agregar Nuevo Registro\n(3)Mostrar Registros\n(4)Busqueda de Registro\n(5)Eliminar Registro\n(6)Editar Registro')
+    print()
+    option = input("Escoja una opcion: ")
+    option = option.upper()
+    print()
+    if (option == '1'):
+        with open(filename, 'w', newline='') as f:
+            fieldnames = ['Cedula', 'Nombre', 'Apellido', 'Edad', 'Ahorros','Password']
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            while(True):
+                cedula = input("Cedula: ")
+                nombre = input("Nombre: ")
+                nombre = nombre.title()
+                apellido = input("Apellido: ")
+                apellido = apellido.title()
+                edad = int(input("Edad: "))
+                ahorro = float(input("Ahorros: "))
+                p1 = getpass.getpass("Ingrese contrasena: ")
+                p2 = getpass.getpass("Confirme contrasena: ")
+                if p1 == p2:
+                    writer.writerow({'Cedula' : cedula, 'Nombre' : nombre, 'Apellido' : apellido, 'Edad' : edad, 'Ahorros' : ahorro, 'Password' : p1})
+                elif p1 != p2:
+                    print("Usuario invalido")
+                    continue
+    
+                print()
+                salida = input("Continuar(C)/Salir(S): ")
+                salida = salida.upper()
+                if (salida == 'C'):
+                    print()
+                    continue
+                if (salida == 'S'):
+                    break
+    if (option == '2'):
+        with open(filename, 'a', newline='') as f:
+            fieldnames = ['Cedula', 'Nombre', 'Apellido', 'Edad', 'Ahorros','Password']
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            while(True):
+                cedula = input("Cedula: ")
+                nombre = input("Nombre: ")
+                nombre = nombre.title()
+                apellido = input("Apellido: ")
+                apellido = apellido.title()
+                edad = int(input("Edad: "))
+                ahorro = float(input("Ahorros: "))
+                p1 = getpass.getpass("Ingrese contrasena: ")
+                p2 = getpass.getpass("Confirme contrasena: ")
+                if p1 == p2:
+                    writer.writerow({'Cedula' : cedula, 'Nombre' : nombre, 'Apellido' : apellido, 'Edad' : edad, 'Ahorros' : ahorro, 'Password' : p1})
+                elif p1 != p2:
+                    print("Usuario invalido")
+                    continue
+    
+
+                print()
+                salida = input("Continuar(C)/Salir(S): ")
+                salida = salida.upper()
+                if (salida == 'C'):
+                    print()
+                    continue
+                if (salida == 'S'):
+                    break
+    if (option == '3'):
+        with open(filename, 'r') as f:
+            reader = csv.reader(f)
+
+            for line in reader:
+                print(line)
+            print()
+    if (option == '4'):
+        lista = []
+        with open(filename, 'r') as f:
+            reader = csv.reader(f)
+            lista = list(reader)
+
+        while(True):
+            find = input("Ingrese cedula: ")
+            for linea in lista:
+                if linea[0] == find:
+                    print(linea)
+                    
+            print()
+            salida = input("Continuar(C)/Salir(S): ")
+            salida = salida.upper()
+            if (salida == 'C'):
+                print()
+                continue
+            if (salida == 'S'):
+                break
+    if (option == '5'):
+
+        with open(filename, 'r') as f:
+            reader = list(csv.reader(f))
+            
+        with open(filename, 'w', newline='') as f:
+            writer = csv.writer(f)
+            find = input("Ingrese cedula: ")
+
+            for line in reader:
+                if line[0] != find:
+                    writer.writerow(line)
+        print()
+    if (option == '6'):
+
+        with open(filename, 'r') as f:
+            reader = list(csv.reader(f))
+            
+        with open(filename, 'w', newline='') as f:
+            
+            writer = csv.writer(f)
+            find = input("Ingrese cedula: ")
+            print()
+            for line in reader:
+                if line[0] != find:
+                    writer.writerow(line)
+                if line[0] == find:
+                    cedula = input("Cedula: ")
+                    nombre = input("Nombre: ")
+                    nombre = nombre.title()
+                    apellido = input("Apellido: ")
+                    apellido = apellido.title()
+                    edad = int(input("Edad: "))
+                    ahorro = float(input("Ahorros: "))
+                    p1 = getpass.getpass("Ingrese contrasena: ")
+                    p2 = getpass.getpass("Confirme contrasena: ")
+                    
+                    writer.writerow([cedula,nombre,apellido,edad,ahorro,p1])
+    print()
+    salida = input("Mostrar Menu(M)/Salir(S): ")
+    salida = salida.upper()
+    if (salida == 'M'):
+        print()
+        continue
+    if (salida == 'S'):
+        break
